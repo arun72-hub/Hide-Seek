@@ -31,7 +31,7 @@ namespace Game.UI.Hud
         private float _levelDuration;
 
         private string _actionText;
-        private string _clockIcon;
+        //private string _clockIcon;
 
         private readonly TimerDelayer _timerDelayer;
         private readonly List<UnitMarkerView> _markers;
@@ -46,7 +46,12 @@ namespace Game.UI.Hud
         {
             var isSeek = _gameManager.Model.IsSeek;
             _actionText = isSeek ? _startingInWord : _timeToHideWord;
-            _clockIcon = GameConstants.ClockIcon;
+            //_clockIcon = GameConstants.ClockIcon;
+            var clockSprite = Resources.Load<Sprite>("UI/ClockIcon");
+            if (clockSprite != null)
+            {
+                _view.ClockIcon.sprite = clockSprite;
+            }
 
             ActionTextVisibility(true);
 
@@ -161,12 +166,25 @@ namespace Game.UI.Hud
             _view.CountdownText.text = string.Format(_textFormat, _actionText, rounded);
         }
 
+        // private void SetLevelDurationText(float duration)
+        // {
+        //     TimeSpan timeSpan = TimeSpan.FromSeconds(duration);
+        //     string timeText = string.Format(_levelDurationFormat, _clockIcon, timeSpan.Minutes, timeSpan.Seconds);
+        //     _view.LevelDurationText.text = timeText;
+        // }
+
         private void SetLevelDurationText(float duration)
         {
             TimeSpan timeSpan = TimeSpan.FromSeconds(duration);
-            string timeText = string.Format(_levelDurationFormat, _clockIcon, timeSpan.Minutes, timeSpan.Seconds);
+            
+            // Set just the time text without the icon
+            string timeText = string.Format("{0:D1}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
             _view.LevelDurationText.text = timeText;
+            
+            // Handle the clock icon separately
+            _view.ClockIcon.gameObject.SetActive(true);
         }
+
 
         private void SetLevelDurationTextColor(Color color)
         {

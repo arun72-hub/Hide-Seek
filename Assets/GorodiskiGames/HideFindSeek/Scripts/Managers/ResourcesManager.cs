@@ -26,5 +26,11 @@ namespace Game.Managers
         {
             
         }
+
+        public Sprite LoadClockIconSprite()
+        {
+            return Resources.Load<Sprite>("UI/ClockIcon");
+        }
+
     }
 }

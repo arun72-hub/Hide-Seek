@@ -16,8 +16,8 @@ MonoBehaviour:
   DefaultIsSeek: 0
   SeekerRadius: 3
   SeekerAngel: 60
-  LevelDuration: 45
-  MinUnitsCaughtToWin: 0
+  LevelDuration: 60
+  MinUnitsCaughtToWin: 3
   _splashScreenDuration: 1.5
   _splashScreenDurationEditor: 0.5
   AdsProviderEditor: 0

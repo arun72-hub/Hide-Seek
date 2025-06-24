@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using Utilities;
+using UnityEngine.UI;
 
 namespace Game.UI.Hud
 {
@@ -15,9 +16,14 @@ namespace Game.UI.Hud
         [SerializeField] private TMP_Text _levelDurationText;
         [SerializeField] private RectTransform _content;
 
+        // Add the clock icon image
+        [SerializeField] private Image _clockIcon;
+
         [SerializeField] private Color _seekColor;
         [SerializeField] private Color _hideColor;
 
+        // Add public property for the clock icon
+        public Image ClockIcon => _clockIcon;
         public TMP_Text CountdownText => _countdownText;
         public TMP_Text LevelDurationText => _levelDurationText;
         public RectTransform Content => _content;

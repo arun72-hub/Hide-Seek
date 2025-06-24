@@ -8,16 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GorodiskiGames/HideFindSeek/Scenes/Gameplay.unity
     guid: 4f57a1e985a05447eb891ff8afc5777b
-  - enabled: 0
+  - enabled: 1
     path: Assets/GorodiskiGames/HideFindSeek/Scenes/Level1.unity
     guid: d4a1a4884b05afb49a377f3995cd98af
-  - enabled: 0
+  - enabled: 1
     path: Assets/GorodiskiGames/HideFindSeek/Scenes/Level2.unity
     guid: a54ab26df641b4943be72e3a55cc618f
-  - enabled: 0
+  - enabled: 1
     path: Assets/GorodiskiGames/HideFindSeek/Scenes/Level3.unity
     guid: 3db4d96d1a3b0d245be86308181d8c5c
-  - enabled: 0
+  - enabled: 1
     path: Assets/GorodiskiGames/HideFindSeek/Scenes/Level4.unity
     guid: fadfec6cafde67042aa62a2e1361f54c
   - enabled: 1
