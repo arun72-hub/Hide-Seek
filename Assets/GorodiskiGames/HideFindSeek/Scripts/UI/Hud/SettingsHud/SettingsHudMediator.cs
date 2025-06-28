@@ -37,7 +37,7 @@ namespace Game.UI.Hud
             VibrationToggleVisibility();
             JoystickVisibilityToggleVisibility();
 
-            _view.CloseButton.onClick.AddListener(OnCloseButtonClick);
+            //_view.CloseButton.onClick.AddListener(OnCloseButtonClick);
             _view.RestorePurchasesButton.onClick.AddListener(OnRestoreClick);
             _view.VibrationToggle.onValueChanged.AddListener(OnVibrationToggleClick);
             _view.JoystickVisibilityToggle.onValueChanged.AddListener(OnJoystickVisibilityToggleClick);
@@ -55,7 +55,7 @@ namespace Game.UI.Hud
 
         protected override void Hide()
         {
-            _view.CloseButton.onClick.RemoveListener(OnCloseButtonClick);
+            //_view.CloseButton.onClick.RemoveListener(OnCloseButtonClick);
             _view.RestorePurchasesButton.onClick.RemoveListener(OnRestoreClick);
             _view.VibrationToggle.onValueChanged.RemoveListener(OnVibrationToggleClick);
             _view.JoystickVisibilityToggle.onValueChanged.RemoveListener(OnJoystickVisibilityToggleClick);

@@ -37,15 +37,15 @@ namespace Game.Config
             ShopProductIAPMap = new Dictionary<string, ShopProductIAPConfig>();
             _paramsMap = new Dictionary<GameParam, object>();
 
-            _paramsMap[GameParam.PlayerWalkSpeed] = 5f;
-            _paramsMap[GameParam.AngleLerpFactor] = 10f;
-            _paramsMap[GameParam.UnitWalkSpeed] = 5.5f;
+            _paramsMap[GameParam.PlayerWalkSpeed] = 8f;
+            _paramsMap[GameParam.AngleLerpFactor] = 5f;
+            _paramsMap[GameParam.UnitWalkSpeed] = 7f;
             _paramsMap[GameParam.CoinRadius] = 1f;
             _paramsMap[GameParam.CoinsByRescue] = 10f;
             _paramsMap[GameParam.AudibilityRadius] = 10f;
             _paramsMap[GameParam.MinDistanceToEnemy] = 5f;
             _paramsMap[GameParam.RescueReloadDuration] = 3f;
-            _paramsMap[GameParam.TimeToHide] = 3f;
+            _paramsMap[GameParam.TimeToHide] = 5f;
             _paramsMap[GameParam.CameraGameplayZoom] = 60;
             _paramsMap[GameParam.CameraMenuZoom] = 88;
             _paramsMap[GameParam.CameraSeekZoom] = 20;

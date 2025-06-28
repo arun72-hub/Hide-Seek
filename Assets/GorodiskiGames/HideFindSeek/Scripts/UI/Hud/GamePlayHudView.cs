@@ -15,6 +15,7 @@ namespace Game.UI.Hud
         [SerializeField] private TMP_Text _countdownText;
         [SerializeField] private TMP_Text _levelDurationText;
         [SerializeField] private RectTransform _content;
+        
 
         // Add the clock icon image
         [SerializeField] private Image _clockIcon;
@@ -27,6 +28,7 @@ namespace Game.UI.Hud
         public TMP_Text CountdownText => _countdownText;
         public TMP_Text LevelDurationText => _levelDurationText;
         public RectTransform Content => _content;
+        public GameObject settingpanel;
 
         public Color SeekColor => _seekColor;
         public Color HideColor => _hideColor;
@@ -49,6 +51,18 @@ namespace Game.UI.Hud
             DOTween.Kill(this);
             _cashText.transform.localScale = Vector3.one;
             _cashText.transform.DOScale(_coinsScaleUp, _coinsScaleDuration).SetLoops(2, LoopType.Yoyo).SetId(this);
+        }
+
+        public void settings()
+        {
+            Time.timeScale=0f;
+            settingpanel.SetActive(true);
+        }
+
+        public void close()
+        {
+            Time.timeScale=1f;
+            settingpanel.SetActive(false);
         }
     }
 }

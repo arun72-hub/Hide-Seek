@@ -5,7 +5,7 @@ namespace Game.UI.Hud
 {
     public sealed class SettingsHudView : BaseHud
     {
-        [SerializeField] private Button _closeButton;
+        //[SerializeField] private Button _closeButton;
         [SerializeField] private Button _restorePurchasesButton;
         [SerializeField] private Toggle _vibrationToggle;
         [SerializeField] private Button _resetButton;
@@ -17,7 +17,7 @@ namespace Game.UI.Hud
         [SerializeField] private Button _twitterButton;
         [SerializeField] private Button _discordButton;
 
-        public Button CloseButton => _closeButton;
+        //public Button CloseButton => _closeButton;
         public Button RestorePurchasesButton => _restorePurchasesButton;
         public Toggle VibrationToggle => _vibrationToggle;
         public Toggle JoystickVisibilityToggle => _joystickVisibilityToggle;

@@ -5,7 +5,7 @@ namespace Game.Cash
 {
     public sealed class CashView : MonoBehaviour
     {
-        private const float _shakeScaleDuration = .5f;
+        private const float _shakeScaleDuration = 0.1f;
         private const float _hideScaleDuration = .2f;
 
         [SerializeField] private int _amount = 1;
