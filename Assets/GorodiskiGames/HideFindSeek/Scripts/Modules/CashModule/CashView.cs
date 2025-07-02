@@ -14,6 +14,7 @@ namespace Game.Cash
 
         public void Collect()
         {
+            AudioManager.instance.PlaySFX(AudioManager.instance.coin);
             transform.DOShakeScale(_shakeScaleDuration).SetId(this);
             transform.DOScale(Vector3.zero, _hideScaleDuration).SetDelay(_shakeScaleDuration).SetId(this).OnComplete(OnComplete);
         }

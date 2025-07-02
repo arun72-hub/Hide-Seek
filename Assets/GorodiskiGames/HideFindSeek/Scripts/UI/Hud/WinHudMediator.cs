@@ -12,6 +12,7 @@ namespace Game.UI.Hud
 
         protected override void Show()
         {
+            AudioManager.instance.PlaySFX(AudioManager.instance.catchperson);
             var isSeek = _gameManager.Model.IsSeek;
             _gameManager.Model.IsSeek = !isSeek;
 

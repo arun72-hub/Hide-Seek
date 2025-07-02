@@ -31,6 +31,7 @@ namespace Game.UI.Hud
 
         protected override void Show()
         {
+            AudioManager.instance.PlaySFX(AudioManager.instance.gameover);
             var info = string.Format(_notEnoughtUnitsPatter, _notEnoughtUnitsLabel, _config.MinUnitsCaughtToWin);
             if(_type == LoseType.PlayerCaught)
                 info = string.Format(_playerCaughtPatter, _playerCaughtLabel);

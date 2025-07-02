@@ -120,6 +120,7 @@ namespace Game.Modules
 
         private void OnUnitCaught(UnitView view)
         {
+            AudioManager.instance.PlaySFX(AudioManager.instance.catchperson);
             view.ON_CAUGHT -= OnUnitCaught;
 
             var unit = _gameManager.UnitsMap[view];
