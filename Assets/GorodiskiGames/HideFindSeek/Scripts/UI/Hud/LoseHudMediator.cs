@@ -31,7 +31,8 @@ namespace Game.UI.Hud
 
         protected override void Show()
         {
-            AudioManager.instance.PlaySFX(AudioManager.instance.gameover);
+            _view.StartCoroutine(DelayedShow());
+            //AudioManager.instance.PlaySFX(AudioManager.instance.gameover);
             var info = string.Format(_notEnoughtUnitsPatter, _notEnoughtUnitsLabel, _config.MinUnitsCaughtToWin);
             if(_type == LoseType.PlayerCaught)
                 info = string.Format(_playerCaughtPatter, _playerCaughtLabel);
@@ -39,6 +40,13 @@ namespace Game.UI.Hud
             _view.InfoText.text = info;
 
             _view.RestartButton.onClick.AddListener(OnRestartButtonClick);
+        }
+
+        private System.Collections.IEnumerator DelayedShow()
+        {
+            yield return new UnityEngine.WaitForSeconds(1.0f);
+            // 🔊 Play Game Over sound
+            AudioManager.instance.PlaySFX(AudioManager.instance.gameover);
         }
 
         protected override void Hide()
