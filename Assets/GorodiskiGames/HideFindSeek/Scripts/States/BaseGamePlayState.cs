@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Game.Config;
 using Game.Core;
@@ -100,6 +100,10 @@ namespace Game.States
         public void SetCameraJoystick(bool isEnable, Transform target, GameParam cameraZoom)
         {
             _gameView.Joystick.SetEnabled(isEnable);
+            if (_gameManager != null && _gameManager.Model != null)
+            {
+                _gameView.Joystick.JoystickVisibility(_gameManager.Model.JoystickVisibility);
+            }
 
             _gameView.CameraController.ZoomTo(_config.GetValue(cameraZoom), _config.CameraZoomDuration);
             _gameView.CameraController.SetTarget(target);

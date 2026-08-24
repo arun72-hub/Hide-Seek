@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 
-public class MazePrefabGenerator : MonoBehaviour
+public class MazeFromImage : MonoBehaviour
 {
     public GameObject wallPrefab; // Assign a Cube prefab in Unity
     private string jsonFileName = "prefab_data.json"; // Ensure it's in StreamingAssets

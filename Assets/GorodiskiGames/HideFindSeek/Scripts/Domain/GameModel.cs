@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Game.Config;
 using UnityEngine;
 using Core;
@@ -49,7 +49,7 @@ namespace Game
             IsSeek = config.DefaultIsSeek;
             IsVibration = true;
             IsNoAds = false;
-            JoystickVisibility = false;
+            JoystickVisibility = true;
         }
 
         public void Save()

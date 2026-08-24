@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Injection;
 
@@ -23,7 +23,7 @@ namespace Game.Core
 
         public StateManager()
         {
-            IsLogEnabled = true;
+            IsLogEnabled = false;
             _statesMap = new Dictionary<Type, T>(10);
             _state = null;
         }

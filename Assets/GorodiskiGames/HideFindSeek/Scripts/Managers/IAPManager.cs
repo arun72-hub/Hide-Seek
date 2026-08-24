@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Game.Config;
 using Game.Core;
@@ -210,12 +210,12 @@ namespace Game.Managers
 
         public void OnInitializeFailed(InitializationFailureReason error)
         {
-            Debug.Log("Initialize failed due to: " + error);
+            // Debug.Log("Initialize failed due to: " + error);
         }
 
         public void OnInitializeFailed(InitializationFailureReason error, string message)
         {
-            Debug.Log("Initialize failed due to: " + error);
+            // Debug.Log("Initialize failed due to: " + error);
         }
 
         public Product GetMetaDataById(string id)

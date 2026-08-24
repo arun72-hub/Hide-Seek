@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 #if UNITY_IOS
 using Unity.Advertisement.IosSupport;
 #endif
@@ -18,7 +18,7 @@ namespace Game.Managers
                 RequestAuthorizationTracking();
             }
 #else
-            Debug.Log("Unity iOS Support: App Tracking Transparency status not checked, because the platform is not iOS.");
+            // Debug.Log("Unity iOS Support: App Tracking Transparency status not checked, because the platform is not iOS.");
 #endif
         }
 

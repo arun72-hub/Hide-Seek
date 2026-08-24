@@ -455,6 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 949568339}
   - component: {fileID: 949568340}
+  - component: {fileID: 949568341}
   m_Layer: 0
   m_Name: MazeSpawner
   m_TagString: Untagged
@@ -489,19 +490,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbd480039f60a344bdc0ff90b9d70b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Algorithm: 4
-  FullRandom: 1
+  FullRandomness: 1
   RandomSeed: 3
-  Floor: {fileID: 2234273405715714922, guid: 94c5837fe8d6de640ad9aa920a5d7cbc, type: 3}
-  Wall: {fileID: 144206, guid: 9de82ec743bb24449a99f5cf1e325d61, type: 3}
-  Pillar: {fileID: 142476, guid: f3f97a2401feba4479a301d6181e9da6, type: 3}
-  Rows: 6
-  Columns: 6
-  CellWidth: 4
-  CellHeight: 4
-  AddGaps: 0
-  GoalPrefab: {fileID: 3384609974750539867, guid: 01dbcf198f3cfd44596b3a05c593bc17,
-    type: 3}
+  shape: 0
+  RandomizeShapeEachTime: 1
+  minSize: 5
+  maxSize: 15
+  baseCellSize: 2
+  gapProbability: 0.3
+  floorPrefab: {fileID: 0}
+  wallPrefab: {fileID: 0}
+  pillarPrefab: {fileID: 0}
+  goalPrefab: {fileID: 0}
+  playerPrefabs: []
+--- !u!114 &949568341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949568338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!115 &999177115
 MonoScript:
   m_ObjectHideFlags: 0

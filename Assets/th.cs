@@ -4,7 +4,7 @@ using Unity.AI.Navigation; // ✅ Required for NavMeshSurface
 using System.Collections;
 using System.Collections.Generic;
 
-public class MazeSpawner3 : MonoBehaviour
+public class th : MonoBehaviour
 {
     public enum MazeGenerationAlgorithm
     {

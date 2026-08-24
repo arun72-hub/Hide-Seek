@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MazeLevel4Generator : MonoBehaviour
+public class maze : MonoBehaviour
 {
     public GameObject wallPrefab;
     public GameObject groundPrefab;

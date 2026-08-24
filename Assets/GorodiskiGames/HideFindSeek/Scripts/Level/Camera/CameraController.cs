@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using DG.Tweening;
 
 namespace Game
@@ -29,6 +29,7 @@ namespace Game
 
         private void Update()
         {
+            if (_target == null) return;
             Vector3 position = _target.position + _target.forward * _distance;
             transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * _sensitivity);
         }

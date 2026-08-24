@@ -1,4 +1,4 @@
-﻿using Game.Config;
+using Game.Config;
 using Game.Core;
 using Game.Core.UI;
 using Game.Utilities;
@@ -48,7 +48,7 @@ namespace Game.UI.Hud
             _actionText = isSeek ? _startingInWord : _timeToHideWord;
             //_clockIcon = GameConstants.ClockIcon;
             var clockSprite = Resources.Load<Sprite>("UI/ClockIcon");
-            if (clockSprite != null)
+            if (clockSprite != null && _view != null && _view.ClockIcon != null)
             {
                 _view.ClockIcon.sprite = clockSprite;
             }
@@ -182,7 +182,10 @@ namespace Game.UI.Hud
             _view.LevelDurationText.text = timeText;
             
             // Handle the clock icon separately
-            _view.ClockIcon.gameObject.SetActive(true);
+            if (_view != null && _view.ClockIcon != null)
+            {
+                _view.ClockIcon.gameObject.SetActive(true);
+            }
         }
 
 

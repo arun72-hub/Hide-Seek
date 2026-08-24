@@ -1,4 +1,4 @@
-﻿using Game.Core.UI;
+using Game.Core.UI;
 using Game.Managers;
 using Game.States;
 using Injection;
@@ -16,20 +16,32 @@ namespace Game.UI.Hud
 
         protected override void Show()
         {
-            _view.LevelLabetText.text = string.Format(_levelPattern, _arenaWord, _gameManager.Model.Level);
+            if (_view != null)
+            {
+                if (_view.LevelLabetText != null && _gameManager != null && _gameManager.Model != null)
+                {
+                    _view.LevelLabetText.text = string.Format(_levelPattern, _arenaWord, _gameManager.Model.Level);
+                }
 
-            _view.Model = _gameManager.Model;
+                if (_gameManager != null)
+                {
+                    _view.Model = _gameManager.Model;
+                }
 
-            _view.SettingsButton.onClick.AddListener(OnSettingsButtonClicked);
-            _view.PlayButton.onClick.AddListener(OnPlayButtonClicked);
-            _view.ShopButton.onClick.AddListener(OnShopButtonClicked);
+                if (_view.SettingsButton != null) _view.SettingsButton.onClick.AddListener(OnSettingsButtonClicked);
+                if (_view.PlayButton != null) _view.PlayButton.onClick.AddListener(OnPlayButtonClicked);
+                if (_view.ShopButton != null) _view.ShopButton.onClick.AddListener(OnShopButtonClicked);
+            }
         }
 
         protected override void Hide()
         {
-            _view.SettingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
-            _view.PlayButton.onClick.RemoveListener(OnPlayButtonClicked);
-            _view.ShopButton.onClick.RemoveListener(OnShopButtonClicked);
+            if (_view != null)
+            {
+                if (_view.SettingsButton != null) _view.SettingsButton.onClick.RemoveListener(OnSettingsButtonClicked);
+                if (_view.PlayButton != null) _view.PlayButton.onClick.RemoveListener(OnPlayButtonClicked);
+                if (_view.ShopButton != null) _view.ShopButton.onClick.RemoveListener(OnShopButtonClicked);
+            }
         }
 
         private void OnShopButtonClicked()

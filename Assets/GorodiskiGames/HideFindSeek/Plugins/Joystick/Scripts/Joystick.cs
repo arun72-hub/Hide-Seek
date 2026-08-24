@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,15 +17,44 @@ namespace Game.Controls
 
         private Vector2 _touchPosition;
         private Touch _oneTouch;
-        private bool _joystickVisibility;
+        private bool _joystickVisibility = true;
+        private bool _isPointerDown;
 
         private void Start()
         {
             SpritesVisibility(false);
         }
 
+        private void Update()
+        {
+            if (!_isPointerDown)
+            {
+                float h = Input.GetAxisRaw("Horizontal");
+                float v = Input.GetAxisRaw("Vertical");
+
+                if (h != 0f || v != 0f)
+                {
+                    if (!IsTouched)
+                    {
+                        ON_FIRST_TOUCH?.Invoke();
+                    }
+                    IsTouched = true;
+                    Vector2 dir = new Vector2(h, v).normalized;
+                    Horizontal = dir.x;
+                    Vertical = dir.y;
+                }
+                else
+                {
+                    IsTouched = false;
+                    Horizontal = 0f;
+                    Vertical = 0f;
+                }
+            }
+        }
+
         public virtual void OnPointerDown(PointerEventData eventData)
         {
+            _isPointerDown = true;
             ON_FIRST_TOUCH?.Invoke();
 
             OnDrag(eventData);
@@ -33,26 +62,9 @@ namespace Game.Controls
 
         public void OnDrag(PointerEventData eventData)
         {
-#if UNITY_EDITOR
-            if (eventData.IsPointerMoving())
-            {
-                _touchPosition = Input.mousePosition;
-                if (!IsTouched)
-                {
-                    IsTouched = true;
+            if (eventData == null) return;
 
-                    SpritesVisibility(true);
-
-                    _background.transform.position = _touchPosition;
-                    _handle.transform.position = _touchPosition;
-                }
-                Move();
-            }
-#else
-        if (eventData.IsPointerMoving() && eventData.pointerId == 0)
-        {
-            _oneTouch = Input.GetTouch(0);
-            _touchPosition = _oneTouch.position;
+            _touchPosition = eventData.position;
 
             if (!IsTouched)
             {
@@ -60,12 +72,10 @@ namespace Game.Controls
 
                 SpritesVisibility(true);
 
-                _background.transform.position = _touchPosition;
-                _handle.transform.position = _touchPosition;
+                if (_background != null) _background.transform.position = _touchPosition;
+                if (_handle != null) _handle.transform.position = _touchPosition;
             }
             Move();
-        }
-#endif
         }
 
         private void OnDisable()
@@ -75,13 +85,18 @@ namespace Game.Controls
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
+            _isPointerDown = false;
             IsTouched = false;
+            Horizontal = 0f;
+            Vertical = 0f;
 
             SpritesVisibility(false);
         }
 
         private void Move()
         {
+            if (_handle == null) return;
+
             _handle.transform.position = _touchPosition;
             _handle.transform.localPosition = Vector2.ClampMagnitude(_handle.transform.localPosition, _maxRadius);
 
@@ -94,8 +109,8 @@ namespace Game.Controls
             if (_joystickVisibility == false)
                 value = false;
 
-            _background.SetActive(value);
-            _handle.SetActive(value);
+            if (_background != null) _background.SetActive(value);
+            if (_handle != null) _handle.SetActive(value);
         }
 
         public void JoystickVisibility(bool value)
@@ -106,6 +121,7 @@ namespace Game.Controls
         public void SetEnabled(bool value)
         {
             enabled = value;
+            gameObject.SetActive(value);
         }
     }
 }

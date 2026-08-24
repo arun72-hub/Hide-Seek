@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RandomMazeGenerator : MonoBehaviour
+public class ne : MonoBehaviour
 {
     public GameObject wallPrefab;  // Assign a Cube prefab for walls
     public GameObject floorPrefab; // Assign a Plane prefab for the floor

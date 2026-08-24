@@ -2,7 +2,6 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -12,50 +11,24 @@ public class AudioManager : MonoBehaviour
 
     [Header("---------- Audio Clip ------------")]
     public AudioClip background;
-    public AudioClip catchperson ;
-    public AudioClip gameover ;
+    public AudioClip catchperson;
+    public AudioClip gameover;
     public AudioClip coin;
-        
 
     [Header("---------- UI Buttons ------------")]
     public Button musicToggleButton;
     public Button sfxToggleButton;
-    //public Button vibrationToggleButton;  // New button for vibration toggle
 
     [Header("---------- UI Button Images ------------")]
     public Sprite musicOnImage;
     public Sprite musicOffImage;
     public Sprite sfxOnImage;
     public Sprite sfxOffImage;
-    // public Sprite vibrationOnImage;       // New image for vibration on
-    // public Sprite vibrationOffImage;      // New image for vibration off
 
     private bool isMusicMuted;
     private bool isSFXMuted;
-    //private bool isVibrationEnabled;
 
     public static AudioManager instance;
-
-    private void Start()
-    {
-        LoadAudioSettings();
-
-        musicSource.clip = background;
-        if (!isMusicMuted)
-        {
-            musicSource.Play();
-        }
-
-        // Set up button listeners
-        musicToggleButton.onClick.AddListener(ToggleMusic);
-        sfxToggleButton.onClick.AddListener(ToggleSFX);
-        //vibrationToggleButton.onClick.AddListener(ToggleVibration);  // Add listener for vibration button
-
-        // Update button visuals based on settings
-        UpdateMusicButtonVisual();
-        UpdateSFXButtonVisual();
-        //UpdateVibrationButtonVisual();
-    }
 
     private void Awake()
     {
@@ -63,36 +36,120 @@ public class AudioManager : MonoBehaviour
         {
             instance = this;
         }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
+
+    private void Start()
+    {
+        InitializeAudio();
+        SetupButtonListeners();
+        UpdateAllVisuals();
+    }
+
+    private void OnEnable()
+    {
+        SetupButtonListeners();
+        UpdateAllVisuals();
+    }
+
+    private void InitializeAudio()
+    {
+        LoadAudioSettings();
+
+        if (musicSource != null)
+        {
+            musicSource.loop = true;
+            if (background != null)
+            {
+                musicSource.clip = background;
+            }
+
+            musicSource.mute = isMusicMuted;
+            if (!isMusicMuted && musicSource.clip != null)
+            {
+                if (!musicSource.isPlaying)
+                {
+                    musicSource.Play();
+                }
+            }
+            else
+            {
+                musicSource.Pause();
+            }
+        }
+
+        if (SFXSource != null)
+        {
+            SFXSource.mute = isSFXMuted;
+        }
+    }
+
+    public void SetupButtonListeners()
+    {
+        if (musicToggleButton != null)
+        {
+            musicToggleButton.onClick.RemoveListener(ToggleMusic);
+            musicToggleButton.onClick.AddListener(ToggleMusic);
+        }
+
+        if (sfxToggleButton != null)
+        {
+            sfxToggleButton.onClick.RemoveListener(ToggleSFX);
+            sfxToggleButton.onClick.AddListener(ToggleSFX);
+        }
     }
 
     public void PlaySFX(AudioClip clip)
     {
-        if (!isSFXMuted)
-        {
-            SFXSource.PlayOneShot(clip);
-        }
-        //Vibrate();
+        if (isSFXMuted || clip == null || SFXSource == null) return;
+        SFXSource.PlayOneShot(clip);
     }
 
     public void PlayMusic(AudioClip clip)
     {
-        if (!isMusicMuted)
+        if (musicSource == null) return;
+
+        if (clip != null)
         {
-            musicSource.PlayOneShot(clip);
+            musicSource.clip = clip;
+        }
+
+        if (!isMusicMuted && musicSource.clip != null)
+        {
+            if (!musicSource.isPlaying)
+            {
+                musicSource.Play();
+            }
         }
     }
 
     public void ToggleMusic()
     {
-        isMusicMuted = !isMusicMuted;
+        SetMusicMuted(!isMusicMuted);
+    }
 
-        if (isMusicMuted)
+    public void SetMusicMuted(bool mute)
+    {
+        isMusicMuted = mute;
+
+        if (musicSource != null)
         {
-            musicSource.Pause();
-        }
-        else
-        {
-            musicSource.Play();
+            musicSource.mute = isMusicMuted;
+            if (isMusicMuted)
+            {
+                musicSource.Pause();
+            }
+            else
+            {
+                if (!musicSource.isPlaying && musicSource.clip != null)
+                {
+                    musicSource.Play();
+                }
+            }
         }
 
         PlayerPrefs.SetInt("MusicMuted", isMusicMuted ? 1 : 0);
@@ -102,72 +159,70 @@ public class AudioManager : MonoBehaviour
 
     public void ToggleSFX()
     {
-        isSFXMuted = !isSFXMuted;
+        SetSFXMuted(!isSFXMuted);
+    }
+
+    public void SetSFXMuted(bool mute)
+    {
+        isSFXMuted = mute;
+
+        if (SFXSource != null)
+        {
+            SFXSource.mute = isSFXMuted;
+        }
+
         PlayerPrefs.SetInt("SFXMuted", isSFXMuted ? 1 : 0);
         PlayerPrefs.Save();
         UpdateSFXButtonVisual();
     }
 
-    //Toggle vibration on/off
-    // public void ToggleVibration()
-    // {
-    //     isVibrationEnabled = !isVibrationEnabled;
-    //     PlayerPrefs.SetInt("VibrationEnabled", isVibrationEnabled ? 1 : 0);
-    //     PlayerPrefs.Save();
-    //     UpdateVibrationButtonVisual();
-
-    //     // Optional: Give short vibration to indicate toggle if enabled
-    //     if (isVibrationEnabled)
-    //     {
-    //         Vibrate();
-    //     }
-    // }
-
-    // Trigger a vibration
-//     public void Vibrate()
-//     {
-//         if (isVibrationEnabled)
-//         {
-// #if UNITY_ANDROID && !UNITY_EDITOR
-//         Handheld.Vibrate();
-// #else
-//             Debug.Log("Vibration triggered (not supported in editor).");
-// #endif
-//         }
-//     }
-
-
-    private void UpdateMusicButtonVisual()
+    public void UpdateAllVisuals()
     {
+        UpdateMusicButtonVisual();
+        UpdateSFXButtonVisual();
+    }
+
+    public void UpdateMusicButtonVisual()
+    {
+        if (musicToggleButton == null) return;
         Image buttonImage = musicToggleButton.GetComponent<Image>();
-        buttonImage.sprite = isMusicMuted ? musicOffImage : musicOnImage;
+        if (buttonImage != null)
+        {
+            if (isMusicMuted && musicOffImage != null)
+            {
+                buttonImage.sprite = musicOffImage;
+            }
+            else if (!isMusicMuted && musicOnImage != null)
+            {
+                buttonImage.sprite = musicOnImage;
+            }
+        }
     }
 
-    private void UpdateSFXButtonVisual()
+    public void UpdateSFXButtonVisual()
     {
+        if (sfxToggleButton == null) return;
         Image buttonImage = sfxToggleButton.GetComponent<Image>();
-        buttonImage.sprite = isSFXMuted ? sfxOffImage : sfxOnImage;
+        if (buttonImage != null)
+        {
+            if (isSFXMuted && sfxOffImage != null)
+            {
+                buttonImage.sprite = sfxOffImage;
+            }
+            else if (!isSFXMuted && sfxOnImage != null)
+            {
+                buttonImage.sprite = sfxOnImage;
+            }
+        }
     }
-
-    // private void UpdateVibrationButtonVisual()
-    // {
-    //     Image buttonImage = vibrationToggleButton.GetComponent<Image>();
-    //     buttonImage.sprite = isVibrationEnabled ? vibrationOnImage : vibrationOffImage;
-    // }
 
     private void LoadAudioSettings()
     {
         isMusicMuted = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
         isSFXMuted = PlayerPrefs.GetInt("SFXMuted", 0) == 1;
-        //isVibrationEnabled = PlayerPrefs.GetInt("VibrationEnabled", 1) == 1;
-
-        if (isMusicMuted)
-        {
-            musicSource.Pause();
-        }
-        else
-        {
-            musicSource.Play();
-        }
     }
+
+    public bool IsMusicMuted => isMusicMuted;
+    public bool IsSFXMuted => isSFXMuted;
 }
+
